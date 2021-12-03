@@ -44,33 +44,20 @@ function binaryTree(tree) {
   return root;
 }
 // ************************************ 生成tree **************************************
-const treenode = binaryTree([3, 9, 20, null, null, 15, 7]);
-var levelOrder = function (root) {
-  //二叉树的层序遍历
-  let res = [],
-    queue = [];
-  if (root === null) {
-    return res;
-  }
-  queue.push(root);
-  while (queue.length !== 0) {
-    // 记录当前层级节点数
-    let length = queue.length;
-    //存放每一层的节点
-    let curLevel = [];
-    for (let i = 0; i < length; i++) {
-      // console.log({ queue });
-      // debugger;
-      let node = queue.shift();
-      curLevel.push(node.val);
-      // 存放当前层下一层的节点
-      node.left && queue.push(node.left);
-      node.right && queue.push(node.right);
-    }
-    //把每一层的结果放到结果数组
-    res.push(curLevel);
-  }
-  return res;
+let nodes = [1, null, 2];
+let tree = binaryTree(nodes);
+
+var preorderTraversal = function (root) {
+  const arr = [];
+  if (root === null) return [];
+  const fn = (node, arr) => {
+    if (node === null) return;
+    fn(node.left, arr);
+    arr.push(node.val);
+    fn(node.right, arr);
+  };
+  fn(root, arr);
+  return arr;
 };
 
-console.log("res ==> ", treenode, "=>", levelOrder(treenode));
+console.log(preorderTraversal(tree));
