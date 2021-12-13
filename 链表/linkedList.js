@@ -1,76 +1,68 @@
-class ListNode {
-  constructor(val, next) {
+/**
+ * 单链表
+ */
+class NodeItem {
+  constructor(val) {
     this.val = val;
-    this.next = next;
+    this.next = null;
   }
 }
-class MyLinkedList {
+class LinkedList {
   constructor() {
-    this.head = this.tail = null;
-    this.index = -1;
+    this.head = null;
+    this.tail = null;
+    this.index = 0;
   }
-  addAtHead(item) {
-    const curr = new ListNode(item, this.head);
+  /**
+   * 插入尾部
+   */
+  append(val) {
+    const node = new NodeItem(val);
+    if (this.index === 0) {
+      this.head = this.tail = node;
+    } else {
+      this.tail.next = node;
+      this.tail = this.tail.next;
+    }
+  }
+  /**
+   * 插入头部
+   */
+  pevpend(val) {
+    const node = new NodeItem(val);
+    if (this.index === 0) {
+      this.head = this.tail = node;
+    } else {
+      const curr = this.head;
+      node.next = curr;
+      this.head = node;
+    }
+  }
+  get(index) {
+    let currIndex = 0;
+    const curr = this.head;
+    while (currIndex++ == index) {
+      curr = curr.next;
+    }
+    return curr;
+  }
+  /**
+   * 插入
+   */
+  insert(val, index) {
+    if (index > this.index || index < 0) return new TypeError("超出范围!!");
+    const node = new NodeItem(val);
+    if (this.index === 0) {
+      this.head = this.tail = node;
+    } else if (index === 0) {
+      this.append(val);
+    } else if (this.index === index) {
+      // 尾部
+      this.pevpend(val);
+    } else {
+      const prevNode = get(index - 1);
+      node.next = prevNode.next;
+      prevNode.next = node;
+    }
   }
 }
-/* 
-var MyLinkedList = function() {
-  this.head = this.tail = null;
-  this.index = -1;
-};
-
-MyLinkedList.prototype.get = function(index) {
-  if(index < 0 || index > this.index) return -1;
-  if(this.index == index) return this.tail.val;
-  let cur = this.head;
-  while(index--){
-      cur = cur.next;
-  }
-  return cur.val;
-};
-
-MyLinkedList.prototype.addAtHead = function(val) {
-  const temp = new ListNode(val,this.head);
-  this.head = temp;
-  if(++this.index == 0) this.tail = this.head;
-};
-
-MyLinkedList.prototype.addAtTail = function(val) {
-  const temp = new ListNode(val,null);
-  if(!this.head){
-       this.head = this.tail = temp;
-  }else{
-      this.tail.next = temp;
-      this.tail = temp;
-  }
-  this.index++;
-};
-
-MyLinkedList.prototype.addAtIndex = function(index, val) {
-  if(this.index + 1 < index) return -1;
-  if(index <= 0) return this.addAtHead(val);
-  if(this.index + 1 == index) return this.addAtTail(val);
-  if(index < this.index + 1){
-      let target = this.head;
-      while(--index){
-          target = target.next;
-      }
-      target.next = new ListNode(val,target.next);
-      this.index++;
-  }
-};
-
-MyLinkedList.prototype.deleteAtIndex = function(index) {
-  if(index < 0 || this.index < index) return -1;
-  if(index == 0){
-      this.head = this.head.next;
-  }else{
-      let target = this.head;
-      while(--index){
-          target = target.next
-      }
-      if(this.tail === target.next) this.tail = target;
-      target.next = target.next.next;
-  }
-  this.index--;
-}; */
