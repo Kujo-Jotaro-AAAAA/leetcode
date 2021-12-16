@@ -11,14 +11,14 @@ class LinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
-    this.index = 0;
+    this.size = 0;
   }
   /**
    * 插入尾部
    */
   append(val) {
     const node = new NodeItem(val);
-    if (this.index === 0) {
+    if (this.size === 0) {
       this.head = this.tail = node;
     } else {
       this.tail.next = node;
@@ -30,7 +30,7 @@ class LinkedList {
    */
   pevpend(val) {
     const node = new NodeItem(val);
-    if (this.index === 0) {
+    if (this.size === 0) {
       this.head = this.tail = node;
     } else {
       const curr = this.head;
@@ -50,13 +50,13 @@ class LinkedList {
    * 插入
    */
   insert(val, index) {
-    if (index > this.index || index < 0) return new TypeError("超出范围!!");
+    if (index > this.size || index < 0) return new TypeError("超出范围!!");
     const node = new NodeItem(val);
-    if (this.index === 0) {
+    if (this.size === 0) {
       this.head = this.tail = node;
     } else if (index === 0) {
       this.append(val);
-    } else if (this.index === index) {
+    } else if (this.size === index) {
       // 尾部
       this.pevpend(val);
     } else {
@@ -64,5 +64,6 @@ class LinkedList {
       node.next = prevNode.next;
       prevNode.next = node;
     }
+    this.size++;
   }
 }
