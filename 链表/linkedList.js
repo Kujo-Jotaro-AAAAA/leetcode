@@ -47,7 +47,8 @@ class LinkedList {
     return curr;
   }
   /**
-   * 插入
+   * 插入, 将前一个节点的next指向新node
+   * 新node的next指向后一个节点
    */
   insert(val, index) {
     if (index > this.size || index < 0) return new TypeError("超出范围!!");
@@ -60,7 +61,7 @@ class LinkedList {
       // 尾部
       this.pevpend(val);
     } else {
-      const prevNode = get(index - 1);
+      const prevNode = this.get(index - 1);
       node.next = prevNode.next;
       prevNode.next = node;
     }
