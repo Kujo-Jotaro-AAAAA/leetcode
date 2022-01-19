@@ -22,14 +22,13 @@ var reverseBetween = function (head, left, right) {
   const dummy_node = new ListNode();
   dummy_node.next = head;
   let pre = dummy_node;
-  for (let i = 0; i < left - 1; ++i) {
+  for (let i = 0; i < left - 1; i++) {
     pre = pre.next;
   }
-
-  let cur = pre.next;
-  for (let i = 0; i < right - left; ++i) {
-    const next = cur.next;
-    cur.next = next.next;
+  let curr = pre.next;
+  for (let i = 0; i < right - left; i++) {
+    let next = curr.next;
+    curr.next = next.next;
     next.next = pre.next;
     pre.next = next;
   }
